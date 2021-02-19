@@ -1,0 +1,17 @@
+<odoo>
+    <record id="module_discografica_category" model="ir.module.category">
+        <field name="name">Discografica</field>
+    </record>
+    <!-- Discografica User Group -->
+    <record id="discografica_group_adm" model="res.groups">
+        <field name="name">Administrativo</field>
+        <field name="category_id" ref="module_discografica_category" />
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+    </record>
+    <!-- Discografica Factultativo Group -->
+    <record id="discografica_group_cli" model="res.groups">
+        <field name="name">Clientes</field>
+        <field name="category_id" ref="module_discografica_category" />
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+    </record>
+</odoo>

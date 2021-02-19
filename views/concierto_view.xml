@@ -1,0 +1,128 @@
+<odoo>
+  <data>
+
+    <!-- TREE -->
+    <record model="ir.ui.view" id="discografica.concierto_tree">
+      <field name="name">Lista Concierto</field>
+      <field name="model">discografica.concierto_model</field>
+      <field name="arch" type="xml">
+        <tree decoration-danger=" numEntradas  &lt; 1">
+          <field name="name" />
+          <field name="fecha_hora" />
+          <field name="lugar" />
+          <field name="numEntradas" />
+          <field name="recaudado" />
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- FORM -->
+    <record model="ir.ui.view" id="discografica.concierto_form">
+      <field name="name">Formulario concierto</field>
+      <field name="model">discografica.concierto_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>            
+          </header>
+          <sheet>
+            <group>
+              <field name="foto" widget="image" height="30%" width="30%"/>
+              <field name="name" />
+              <field name="fecha_hora" />
+              <field name="lugar" />
+              <field name="numEntradas" />
+              <field name="recaudado" />
+              <field name="gira_id" />
+              <field name="artista_ids" />
+              <field name="entrada_ids" attrs="{'invisible': [('entrada_ids', '=', [])] }" groups="discografica.discografica_group_adm"/>
+            </group>
+          </sheet>
+          <footer></footer>
+        </form>
+      </field>
+    </record>
+
+    <!-- GRAPH -->
+
+    <record model="ir.ui.view" id="discografica.concierto_graph">
+      <field name="name">Gráfico de Recaudaciones</field>
+      <field name="model">discografica.concierto_model</field>
+      <field name="arch" type="xml">
+        <graph type="pie">
+          <field name="name" type="row" />
+          <field name="fecha_hora" interval="month" />
+          <field name="recaudado" type="measure" />
+        </graph>
+      </field>
+    </record>
+
+    <!-- PIVOT -->
+    <record model="ir.ui.view" id="discografica.concierto_pivot">
+      <field name="name">Pivot de Concierto</field>
+      <field name="model">discografica.concierto_model</field>
+      <field name="arch" type="xml">
+        <pivot string="Pivot de Conciertos">
+          <field name="name" />
+          <field name="fecha_hora" type="row" interval="month" />
+          <field name="recaudado" type="measure" />
+        </pivot>
+      </field>
+    </record>
+
+    <!-- CALENDAR -->
+    <record model="ir.ui.view" id="discografica.concierto_calendar">
+      <field name="name">Calendario de Conciertos</field>
+      <field name="model">discografica.concierto_model</field>
+      <field name="arch" type="xml">
+        <calendar date_start="fecha_hora" color="name" event_open_popup="True" mode="month" form_view_id="discografica.concierto_form" quick_add="False">
+          <field name="name" />
+          <field name="fecha_hora" />
+        </calendar>
+      </field>
+    </record>
+
+     <!-- KANBAN -->
+     <record model="ir.ui.view" id="discografica.concierto_kanban">
+      <field name="name">Listado de Conciertos</field>
+      <field name="model">discografica.concierto_model</field>
+      <field name="arch" type="xml">
+        <kanban class="o_res_partner_kanban">
+          <field name="name" />
+          <field name="fecha_hora" />
+          <field name="lugar" />
+          <field name="foto" />
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_kanban_image">
+                  <field name="foto" nolabel="1" widget="image" class="oe_right oe_avatar" />
+                </div>
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="name" class="oe_inline" />
+                  </strong>
+                  <div t-if="record.fecha_hora.value">
+                    <t t-esc="record.fecha_hora.value" />
+                  </div>
+                  <div t-if="record.lugar.value">
+                    <t t-esc="record.lugar.value" />
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+
+    <!-- ACTION -->
+    <record model="ir.actions.act_window" id="discografica.action_window_concierto">
+      <field name="name">Conciertos</field>
+      <field name="res_model">discografica.concierto_model</field>
+      <field name="view_mode">kanban,tree,form,calendar,graph,pivot</field>
+    </record>
+
+  </data>
+</odoo>

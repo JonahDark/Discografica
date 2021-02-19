@@ -1,0 +1,95 @@
+<odoo>
+  <data>
+
+    <!-- TREE -->
+    <record model="ir.ui.view" id="discografica.gira_tree">
+      <field name="name">Lista Gira</field>
+      <field name="model">discografica.gira_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="fecha_inicio" />
+          <field name="fecha_fin" />
+          <field name="artista_ids" />
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- FORM -->
+    <record model="ir.ui.view" id="discografica.gira_form">
+      <field name="name">Formulario discografica</field>
+      <field name="model">discografica.gira_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <header></header>
+          <sheet>
+            <group>
+              <field name="foto" widget="image" height="30%" width="30%"/>
+              <field name="name" />
+              <field name="fecha_inicio" />
+              <field name="fecha_fin" />
+              <field name="artista_ids" />
+            </group>
+          </sheet>
+          <footer></footer>
+        </form>
+      </field>
+    </record>
+
+    <!-- CALENDAR -->
+    <record model="ir.ui.view" id="discografica.gira_calendar">
+      <field name="name">Calendario de Giras</field>
+      <field name="model">discografica.gira_model</field>
+      <field name="arch" type="xml">
+        <calendar date_start="fecha_inicio" date_stop="fecha_fin" color="name" event_open_popup="True" mode="month" form_view_id="discografica.gira_form" quick_add="False">
+          <field name="name" />
+          <field name="fecha_inicio" />
+          <field name="fecha_fin" />
+        </calendar>
+      </field>
+    </record>
+
+    <!-- KANBAN -->
+    <record model="ir.ui.view" id="discografica.gira_kanban">
+      <field name="name">Listado de Giras</field>
+      <field name="model">discografica.gira_model</field>
+      <field name="arch" type="xml">
+        <kanban class="o_res_partner_kanban">
+          <field name="name" />
+          <field name="fecha_inicio" />
+          <field name="fecha_fin" />
+          <field name="foto" />
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_kanban_image">
+                  <field name="foto" nolabel="1" widget="image" class="oe_right oe_avatar" />
+                </div>
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="name" class="oe_inline" />
+                  </strong>
+                  <div t-if="record.fecha_inicio.value">
+                    <t t-esc="record.fecha_inicio.value" />
+                  </div>
+                  <div t-if="record.fecha_fin.value">
+                    <t t-esc="record.fecha_fin.value" />
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- ACTION -->
+    <record model="ir.actions.act_window" id="discografica.action_window_gira">
+      <field name="name">Giras</field>
+      <field name="res_model">discografica.gira_model</field>
+      <field name="view_mode">kanban,tree,form,calendar</field>
+    </record>
+
+  </data>
+</odoo>

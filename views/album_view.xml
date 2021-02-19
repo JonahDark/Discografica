@@ -1,0 +1,86 @@
+<odoo>
+  <data>
+
+    <!-- TREE -->
+    <record model="ir.ui.view" id="discografica.album_tree">
+      <field name="name">Lista album</field>
+      <field name="model">discografica.album_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="fecha_creacion_album" />
+          <field name="artista_ids" />
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- FORM -->
+    <record model="ir.ui.view" id="discografica.album_form">
+      <field name="name">Formulario album</field>
+      <field name="model">discografica.album_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <header></header>
+          <sheet>
+            <group>
+              <field name="foto" widget="image" height="30%" width="30%" />
+              <field name="name" />
+              <field name="fecha_creacion_album" />
+              <field name="descripcion" />
+              <field name="artista_ids" />
+            </group>
+          </sheet>
+          <footer></footer>
+        </form>
+      </field>
+    </record>
+
+    <!-- KANBAN -->
+    <record model="ir.ui.view" id="discografica.album_kanban">
+      <field name="name">Listado de Albumes</field>
+      <field name="model">discografica.album_model</field>
+      <field name="arch" type="xml">
+        <kanban class="o_res_partner_kanban">
+          <field name="name" />
+          <field name="fecha_creacion_album" />
+          <field name="foto" />
+          <field name="artista_ids">
+            <tree>
+              <field name="name" />
+            </tree>
+          </field>
+
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_kanban_image">
+                  <field name="foto" nolabel="1" widget="image" class="oe_right oe_avatar" />
+                </div>
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="name" class="oe_inline" />
+                  </strong>
+                  <div t-if="record.name.value">
+                    <t t-esc="record.name.value" />
+                  </div>
+                  <div t-if="record.fecha_creacion_album.value">
+                    <t t-esc="record.fecha_creacion_album.value" />
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- ACTION -->
+    <record model="ir.actions.act_window" id="discografica.action_window_album">
+      <field name="name">Albumes</field>
+      <field name="res_model">discografica.album_model</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,91 @@
+<odoo>
+  <data>
+
+    <!-- TREE -->
+    <record model="ir.ui.view" id="discografica.entrada_tree">
+      <field name="name">Lista Entrada</field>
+      <field name="model">discografica.entrada_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+         <field name="cliente_id" groups="discografica.discografica_group_adm"/>
+          <field name="concierto_id" groups="discografica.discografica_group_adm"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- FORM -->
+    <record model="ir.ui.view" id="discografica.entrada_form">
+      <field name="name">Formulario discografica</field>
+      <field name="model">discografica.entrada_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>                        
+            <button name="limpiaEntradasVendidas" type="object" confirm="Desea eliminar el historial de entradas vendidas?" string="Elimina Entrada vendida" class="oe_highlight" groups="discografica.discografica_group_adm"/>            
+            <button name="eliminaHistorial" type="object" confirm="Desea eliminar el historial de registros" string="Elimina Historial" class="oe_highlight" groups="discografica.discografica_group_adm"/>
+          </header>
+          <sheet>
+            <group>
+              <field name="name" />
+              <field name="precio" groups="discografica.discografica_group_adm"/>
+              <field name="iva" groups="discografica.discografica_group_adm"/>
+              <field name="cantidad" groups="discografica.discografica_group_adm"/>
+         <field name="cliente_id" groups="discografica.discografica_group_adm"/>
+              <field name="concierto_id" groups="discografica.discografica_group_adm"/>
+              <field name="total" groups="discografica.discografica_group_adm"/>
+            </group>
+          </sheet>
+          <footer></footer>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- SEARCH -->
+
+    <record model="ir.ui.view" id="discografica.entrada_search">
+      <field name="name">Filtros de Entradas</field>
+      <field name="model">discografica.entrada_model</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name" />
+              <field name="precio" />
+              <field name="iva" />
+              <field name="cantidad" />
+              <field name="cliente_id" />
+              <field name="concierto_id" />
+              <field name="total" />    
+              <filter string="Entradas Vendidas" name="entradasVendidas" domain="[('active','=',False)]" />
+          <group expand="0" string="Group By">
+            <filter string="Cliente" name="cliente_id" context="{'group_by': 'cliente_id'}"></filter>
+          </group>
+        </search>
+      </field>
+    </record>
+    
+     <!-- PIVOT -->
+     <record model="ir.ui.view" id="discografica.entrada_pivot">
+      <field name="name">Pivot de Entrada</field>
+      <field name="model">discografica.entrada_model</field>
+      <field name="arch" type="xml">
+        <pivot string="Pivot de Entradas">
+          <field name="name" />
+          <field name="precio" type="measure" />
+          <field name="cantidad" type="measure"/>
+          <field name="total" type="measure"/>
+          <field name="iva" />
+        </pivot>
+      </field>
+    </record>
+
+
+    <!-- ACTION -->
+    <record model="ir.actions.act_window" id="discografica.action_window_entrada">
+      <field name="name">Entradas Vendidas</field>
+      <field name="res_model">discografica.entrada_model</field>
+      <field name="view_mode">tree,form,pivot</field>
+    </record>
+
+  </data>
+</odoo>

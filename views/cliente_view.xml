@@ -1,0 +1,95 @@
+<odoo>
+  <data>
+
+    <!-- TREE -->
+    <record model="ir.ui.view" id="discografica.cliente_tree">
+      <field name="name">Lista Cliente</field>
+      <field name="model">discografica.cliente_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="id_cliente" />
+          <field name="name" />
+          <field name="apellidos" />
+          <field name="dni" />
+          <field name="fecha_nacimiento" />
+          <field name="telefono" />
+          <field name="email" widget="email" />
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- FORM -->
+    <record model="ir.ui.view" id="discografica.cliente_form">
+      <field name="name">Formulario cliente</field>
+      <field name="model">discografica.cliente_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>            
+          </header>
+          <sheet>
+            <group>
+              <field name="foto" widget="image" height="30%" width="30%"/>
+              <field name="id_cliente" />
+              <field name="name" />
+              <field name="apellidos" />
+              <field name="dni" />
+              <field name="fecha_nacimiento" />
+              <field name="telefono" />
+              <field name="email" widget="email" />
+              <field name="entrada_ids" />
+            </group>
+          </sheet>
+          <footer></footer>
+        </form>
+      </field>
+    </record>
+
+    <!-- KANBAN -->
+    <record model="ir.ui.view" id="discografica.cliente_kanban">
+      <field name="name">Listado de Clientes</field>
+      <field name="model">discografica.cliente_model</field>
+      <field name="arch" type="xml">
+        <kanban class="o_res_partner_kanban">
+          <field name="name" />
+          <field name="fecha_nacimiento" />
+          <field name="telefono" />
+          <field name="email" />
+          <field name="foto" />
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_kanban_image">
+                  <field name="foto" nolabel="1" widget="image" class="oe_right oe_avatar" />
+                </div>
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="name" class="oe_inline" />
+                  </strong>
+                  <div t-if="record.fecha_nacimiento.value">
+                    <t t-esc="record.fecha_nacimiento.value" />
+                  </div>
+                  <div t-if="record.telefono.value">
+                    <t t-esc="record.telefono.value" />
+                  </div>
+                  <div t-if="record.email.value">
+                    <t t-esc="record.email.value" />
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+    
+
+    <!-- ACTION -->
+    <record model="ir.actions.act_window" id="discografica.action_window_cliente">
+      <field name="name">Clientes</field>
+      <field name="res_model">discografica.cliente_model</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+  </data>
+</odoo>

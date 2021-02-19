@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+    <!-- Top menu item -->
+    <menuitem name="Discografica" id="discografica.menu_root" />
+
+    <!-- menu categories -->
+    <menuitem name="Discograficas" id="discografica.discografica_menu" parent="discografica.menu_root" action="discografica.action_window_discografica" groups="discografica.discografica_group_cli"/>
+    <menuitem name="Artistas" id="discografica.artista_menu" parent="discografica.menu_root" action="discografica.action_window_artista" groups="discografica.discografica_group_cli"/>
+    <menuitem name="Albumes" id="discografica.album_menu" parent="discografica.menu_root" action="discografica.action_window_album" groups="discografica.discografica_group_cli"/>
+    <menuitem name="Canciones" id="discografica.cancion_menu" parent="discografica.menu_root" action="discografica.action_window_cancion" groups="discografica.discografica_group_cli"/>
+    <menuitem name="Giras" id="discografica.gira_menu" parent="discografica.menu_root" action="discografica.action_window_gira" groups="discografica.discografica_group_cli"/>
+    <menuitem name="Conciertos" id="discografica.concierto_menu" parent="discografica.menu_root" action="discografica.action_window_concierto" groups="discografica.discografica_group_cli"/>
+    <menuitem name="Entradas" id="discografica.entrada_menu" parent="discografica.menu_root" action="discografica.action_window_entrada" groups="discografica.discografica_group_cli"/>
+    <menuitem name="Clientes" id="discografica.cliente_menu" parent="discografica.menu_root" action="discografica.action_window_cliente"/>
+  
+  </data>
+</odoo>
